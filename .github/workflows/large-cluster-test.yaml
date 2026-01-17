@@ -25,11 +25,10 @@ jobs:
           go-version: '^1.16'
       - name: Install helm
         run: |
-          curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
-          sudo apt-get install apt-transport-https --yes
-          echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-          sudo apt-get update
-          sudo apt-get install helm
+             curl -fsSL https://get.helm.sh/helm-v3.14.3-linux-amd64.tar.gz -o helm.tar.gz
+             tar -zxvf helm.tar.gz
+             sudo mv linux-amd64/helm /usr/local/bin/helm
+             helm version
       - name: Install jq
         run: |
           sudo apt-get install jq
@@ -136,3 +135,4 @@ jobs:
           SKIP_LOGS_COLLECTION: true
           AZURE_CORE_ONLY_SHOW_ERRORS: True
         run: make test-kubernetes
+
